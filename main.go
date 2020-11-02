@@ -2,7 +2,7 @@ package main
 
 import (
 	"log"
-	"merchants"
+	"github.com/azdonald/sellerbase/src/merchants"
 	"net/http"
 
 	"github.com/emicklei/go-restful/v3"
