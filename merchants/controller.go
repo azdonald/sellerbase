@@ -10,7 +10,8 @@ import (
 func New() *restful.WebService {
 	fmt.Print("merchant service")
 	service := new(restful.WebService)
-	service.Route(service.GET("/merchants").To(FindMerchant))
+	service.Path("merchants").Produces(restful.MIME_JSON)
+	service.Route(service.GET("").To(FindMerchant))
 	return service
 }
 
