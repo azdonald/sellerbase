@@ -7,5 +7,5 @@ import (
 // Merchant represents the sellers on the platform
 type Merchant struct {
 	util.Base
-	Name string `json:"name"`
+	BusinessName string `gorm:"size:100;not null;unique" json:"business_name"`
 }

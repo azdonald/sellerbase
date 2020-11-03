@@ -16,8 +16,9 @@ type Base struct {
 }
 
 //BeforeCreate gorm hook
-func (base *Base) BeforeCreate(scope *gorm.DB) {
+func (base *Base) BeforeCreate(tx *gorm.DB) (err error) {
 	uuid := uuid.NewV4().String()
 
 	base.ID = uuid
+	return
 }
