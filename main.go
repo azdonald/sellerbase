@@ -5,14 +5,14 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/azdonald/sellerbase/src/merchants"
-
+	"github.com/azdonald/sellerbase/src/db"
+	r "github.com/azdonald/sellerbase/src/routers"
 	"github.com/emicklei/go-restful/v3"
 )
 
 func main() {
 	fmt.Println("Starting server ......")
-
-	restful.Add(merchants.New())
+	db.InitDB()
+	restful.Add(r.NewMerchantService())
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }

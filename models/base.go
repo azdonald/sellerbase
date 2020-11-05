@@ -1,4 +1,4 @@
-package util
+package models
 
 import (
 	"time"
@@ -15,8 +15,8 @@ type Base struct {
 	DeletedAt *time.Time `sql:"index" json:"deleted_at"`
 }
 
-//BeforeCreate gorm hook
-func (base *Base) BeforeCreate(tx *gorm.DB) (err error) {
+//BeforeSave gorm hook
+func (base *Base) BeforeSave(tx *gorm.DB) (err error) {
 	uuid := uuid.NewV4().String()
 
 	base.ID = uuid

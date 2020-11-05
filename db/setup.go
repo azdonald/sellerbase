@@ -1,15 +1,13 @@
 package db
 
 import (
-	m "github.com/azdonald/sellerbase/src/merchants"
+	m "github.com/azdonald/sellerbase/src/models"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
 
-
 // DB global for accessing the database
 var DB *gorm.DB
-
 
 // InitDB sets up connection to the database
 func InitDB() {
