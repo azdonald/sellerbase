@@ -18,6 +18,6 @@ func InitDB() {
 		panic("Failed to connect to database")
 	}
 
-	database.AutoMigrate(&m.Merchant{})
+	database.AutoMigrate(&m.Merchant{}, &m.User{})
 	DB = database
 }
