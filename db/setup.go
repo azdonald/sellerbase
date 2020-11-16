@@ -10,8 +10,9 @@ import (
 var DB *gorm.DB
 
 // InitDB sets up connection to the database
-func InitDB() {
-	dsn := "root:presario@tcp(127.0.0.1:3306)/sellerbase?charset=utf8mb4&parseTime=True&loc=Local"
+func InitDB(dbUser string, dbPassword string) {
+	
+	dsn := dbUser +":"+ dbPassword + "@tcp(127.0.0.1:3306)/sellerbase?charset=utf8mb4&parseTime=True&loc=Local"
 	database, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 
 	if err != nil {
