@@ -20,25 +20,26 @@ func FindUser(req *restful.Request, res *restful.Response) {
 
 // CreateUser is handler for creating a new user
 func CreateUser(req *restful.Request, res *restful.Response) {
-	merchantRegistration := new(register)
+	user := new(m.User)
 
-	err := req.ReadEntity(&merchantRegistration)
+	err := req.ReadEntity(&user)
 	if err != nil {
 		res.WriteError(http.StatusInternalServerError, err)
+		return
 	}
 
-	merchant := new(m.Merchant)
-	user := new(m.User)
-	merchant.BusinessName = merchantRegistration.BusinessName
-	user.FirstName = merchantRegistration.FirstName
-	user.LastName = merchantRegistration.LastName
-	user.Email = merchantRegistration.Email
+	_, err = user.IsValid()
+	if err != nil {
+		res.WriteError(http.StatusInternalServerError, err)
+		return
+	}
 
 	result := db.DB.Create(&user)
 	if result.Error != nil {
 		res.WriteError(http.StatusBadRequest, result.Error)
+		return
 	}
 
-	//Send new registration event
+	//Send new user added event
 	res.WriteHeaderAndEntity(http.StatusCreated, user)
 }

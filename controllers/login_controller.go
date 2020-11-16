@@ -15,5 +15,6 @@ func Login(req *restful.Request, res *restful.Response) {
 		res.WriteError(http.StatusInternalServerError, err)
 	}
 
+	//Send email with url to complete login process from here
 	res.WriteEntity(loginRequest["email"])
 }

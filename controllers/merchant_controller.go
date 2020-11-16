@@ -30,6 +30,7 @@ func CreateMerchant(req *restful.Request, res *restful.Response) {
 	err := req.ReadEntity(&merchantRegistration)
 	if err != nil {
 		res.WriteError(http.StatusInternalServerError, err)
+		return
 	}
 
 	merchant := new(m.Merchant)
@@ -40,9 +41,17 @@ func CreateMerchant(req *restful.Request, res *restful.Response) {
 	user.Email = merchantRegistration.Email
 	user.Merchant = *merchant
 
+	_, err = user.IsValid()
+	if err != nil {
+		res.WriteError(http.StatusInternalServerError, err)
+		return
+	}
+
+
 	result := db.DB.Create(&user)
 	if result.Error != nil {
 		res.WriteError(http.StatusBadRequest, result.Error)
+		return
 	}
 
 	//Send new registration event
